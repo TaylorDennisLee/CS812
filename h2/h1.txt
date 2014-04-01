@@ -1,0 +1,16 @@
+Taylor Lee
+
+CS 368 Homework 1
+
+Problem 1:
+
+This loop assigns to each value of the array the contents of the first position (7) plus the index of the loop (i). Hence the contents of the array will be:
+
+{7, 8, 9, 10, 11, 12, 13, 14}
+
+Problem 2:
+The pointer p is first set to point to a, which is equivalent to a pointer to the first element of a. This pointer is then incremented by 1, and then the third position of the array it points to is assigned the value 0, which the fourth position of the initial array.
+
+
+Problem 4:
+

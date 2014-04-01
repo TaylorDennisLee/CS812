@@ -1,0 +1,119 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amsfonts,amsthm}
+\usepackage[fleqn]{mathtools}
+\usepackage{a4wide}
+\usepackage{fancyhdr} % Custom headers and footers
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{parskip}
+
+\usepackage[adobe-utopia]{mathdesign}
+\usepackage[T1]{fontenc}
+
+\usepackage{titlesec} % www.ctan.org/tex-archive/macros/latex/contrib/titlesec/titlesec.pdf
+
+% Below "\section" can be replaced with "\subsection" and "\subsubsection"
+% in order to customize the corresponding headings
+
+
+
+\pagestyle{fancyplain}
+\fancyhead[L]{HW1: 02/14/2014}
+\fancyhead[C]{University of Wisconsin-Madison}
+\fancyhead[R]{Professor Eric Bach}
+\fancyfoot[L]{Taylor Lee}
+\fancyfoot[C]{CS 812}
+\fancyfoot[R]{tdlee2@wisc.edu}
+\newtheoremstyle{moo}
+{10pt}
+{10pt}
+{}
+{}
+{\bfseries}
+{:}
+{\newline }
+{}
+
+
+\theoremstyle{moo}
+\newtheorem*{prob}{Problem}
+\newtheorem*{sol}{Solution}
+\newtheorem*{theorem}{Theorem}
+
+\def\zz{{\mathbb Z}}
+\def\lr{{\Leftrightarrow}}
+\def\poi{{\pmod{26}}}
+
+
+\begin{document}
+\fontencoding {T1}
+\fontfamily {put}
+\fontseries {\seriesdefault}
+\fontshape {\shapedefault}
+%\fontsize {size} {baselineskip} 
+\selectfont
+
+\title{\usefont{T1}{put}{b}{n} Arithmetic Algorithms 2014: HW1}
+\date{Febuary 14, 2014}         % used by \maketitle
+\author{Taylor Lee}      % used by \maketitle                    % used by \maketitle
+\maketitle                      % automatic title!
+
+
+
+
+\section*{Problem 2}
+
+
+\subsection*{Part A:}
+A pair $\left(a,b\right)$ creates a good permutation is this context if and only if $\gcd(a,n) = \gcd(a-1,n) = 1$.
+
+It is clear that any affine transformation, $f: \zz_{n} \to \zz_{n}$ where
+\[
+x \mapsto ax + b \pmod{n}
+\]
+
+is a bijection if only if $a$ has an inverse in $\zz_n$. For if we let $y = ax + b \pmod{n}$, then $ax = y - b \pmod{n}$ and hence $x = a^{-1}\left( y - b \right) \pmod{n}$ if and only if $\exists a^{-1} \in \zz_{n}$. Next, in order to be a good permutation, $g(x) = x - f(x) \pmod{n}$ must also be a bijection, as this is equivalent to each shift $g$ being unique. If $g$ is bijective, then for any $d \in \zz_n$ there must be a solution $x \in zz_n$ to the equation: 
+\[
+x - ax - b \equiv c \pmod{n}
+\]
+
+We will add $b$ to both sides and multiply by $-1$ in order to put this congruence into a more desirable form:
+
+\[
+\left(a -1 \right)x \equiv b - c \pmod{n}
+\]
+
+Here again, we can see that no matter the $b$, if given a $c$, only when $a-1$ has an inverse $\pmod{n}$ can we ensure that a solution $x \in \zz_n$ will exist. Hence, our initial statement as to what pairs $\left(a,b\right)$ create a good permutation is correct.
+
+\subsection*{Part B:}
+How many of these 'good' pairs $\left(a,b\right)$ exist, given $n \in \zz^{+}$? Let us first consider when $n$ is a prime $p$. In this case, the number of invertible elements in $\zz_p = p-1$, as all other integers are coprime with $p$, except for the additive identity, $0$. Hence, for prime $p$, there are $p\left(p-1\right) = p^2 - p$ possible pairs, as there are $p$ possible $b$ and $p-1$ possible $a$. 
+
+We can now consider prime powers, or permutations of $\zz_{p^k}$. The only elements of this ring which don't have inverses are those which have $p$ as a divisor and $0$. Hence, for $\zz_{p^k}$, we can start with $0$ and add $p$ to it repeatedly in order to iterate over all of the elements of $\zz_{p^k}$ which do not have inverses, and we can see that since there are $p^k$ elements in this ring, and since we are incrementing by $p$, there are $p^{k-1}$ elements which do not have inverses, and hence $p^k - p^{k-1}$ elements in $\zz_{p^k}$ which could be $a$ and ensure that our affine transformation is bijective and hence a permutation. However, as we have shown above, $a-1$ must also be invertible in $\zz_{p^k}$. This means that our count for the number non-invertible elements in $\zz_{p^k}$ must double. Thus, the number of elements in $\zz_{p^k}$ which could be $a$ and satisfy our conditions for a good permutation are:
+
+\[
+p^k - 2p^{k-1} = p^{k-1} \left(p-2\right) = \left(2p^k - 2p^{k-1}\right) - p^k = 2\varphi(p^k) - p^k.
+\]
+
+We can multiply this number by $p^k$, on behalf of the initial shift $b$, in order to get the total number of pairs $\left( a,b \right)$ in $\zz_{p^k}$ which correspond to good permutations.
+
+This result can be generalized to any $n \in \zz^{+}$ with the Chinese Remainder Theorem, since if
+
+\[
+n = p_{1}^{k_1} \times \dots \times p_{i}^{k_i}
+\]
+
+Where each $p_j$ is distinct, then we have two isomorphic rings:
+
+\[
+\zz_n \cong \zz_{p_{1}^{k_1}} \times \dots \times \zz_{p_{h}^{k_h}}.
+\]
+
+And hence our most general formula for pairs $\left(a,b\right)$ is 
+\[
+\#_{a,b}(n) = n \prod_{p|n} \left[ 2\varphi(p_i^{k_i}) - p_i^{k_i} \right]
+\]
+
+Where $k_j$ is the multiplicity of $p_j$ in $n$.
+
+
+\end{document}   
