@@ -65,10 +65,65 @@
 
 
 \subsection*{Part A:}
-I really struggled with this question. This answer came with the asstince of a translation of one of Euler's papers.
+Assume $p$ is a prime divisor of $F_5$. Then we have:
+\[
+2^{2^5} + 1 \equiv 0 \pmod{p} \iff 2^{2^5}  \equiv -1 \pmod{p}
+\]
+
+And by squaring each side:
+
+\[
+ 2^{2^5}  \equiv -1 \pmod{p} \iff 2^{2^6} \equiv 1 \pmod{p}.
+\]
+
+If $m$ is the order of $2 \pmod{p}$, then $m|2^6$. We can see immeadiently that $m=2^6$, since if $m$ were any lesser power of $2$, then this would contradict $2^{2^5}  \equiv -1 \pmod{p}$. By Euler's theorem:
+
+\[
+2^{p-1} \equiv 1 \pmod{p}
+\]
+
+Which further implies:
+
+\[
+2^6 | (p-1) \iff \exists k \text{such that} k2^6 + 1 = p.
+\]
+
+Hence it is clear that for any prime divisor $p$ of $F_5$:
+
+\[
+p \equiv 1 \pmod{64}.
+\]
+
+Euler, having discovered this, would hence have to try to divide $F_5$ by ten numbers,
+
+\[
+\begin{array}{|c|c|}
+\hline
+k&k2^6+1\\
+\hline
+0&1\\
+1&65\\
+2&129\\
+3&193\\
+4&257\\
+5&321\\
+6&385\\
+7&449\\
+8&513\\
+9&577\\
+10&641\\
+\hline
+\end{array}
+\]
+
+And found sucess with $k=10$.
+
+
 
 \subsection*{Part B:}
 Euler could have discovered that $6,700,417$ is prime. He could have found an approximation for this number's square root, and from here see that there would only be ten further numbers of the form $k2^5+1$ that could be the smallest divisor of $6,700,417$.
+
+
 \subsection*{Part C:}
 
 Since their are 10 different ways to multiply a number by a single-digit number, if each multiple occurs uniformily, then we can estimate the expected number of times we expected to record a randomly occuring multiple before having them all. We have compensated our estimate for the chances that we catch.
@@ -117,6 +172,16 @@ We know from a structure theorem that
 \left(\zz/n\zz\right)^* \cong \left(\zz/p_1^{e_1-1}\zz \right) \times \left(\zz/(p_1-1)\zz \right) \times \ldots \times \left(\zz/p_i^{e_i-1}\zz \right) \times \left(\zz/(p_i-1)\zz \right)
 \]
 
+As far as I can tell:
 
+\[
+\left(
+\prod_{p|n} \sum_{\substack{1 \leq k < p \\ (\frac{k}{n}) = 1 }} 1
+\right)
+ +
+\left(
+\prod_{p|n} \sum_{\substack{1 \leq k < p \\ (\frac{k}{n}) = -1 }} 1
+\right)
+\]
 
 \end{document}   
